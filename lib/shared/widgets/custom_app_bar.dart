@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_bet/core/core.dart';
 
-import '../../welcome.dart';
+import '../../features/welcome/welcome.dart';
+import 'clippers/app_bar_clipper.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key, required this.text});
@@ -13,7 +14,7 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final topPadding = MediaQuery.of(context).padding.top;
     return ClipPath(
-      clipper: CutCornerClipper(
+      clipper: AppBarClipper(
         radius: 40,
         cutRectWidth: 217.w,
         cutRectHeight: 55.h,
@@ -28,7 +29,7 @@ class CustomAppBar extends StatelessWidget {
           height: 55.h,
           child: Align(
             alignment: Alignment.centerLeft,
-            child: Text(text, style: AppTextStyles.title),
+            child: Text(text, style: AppTextStyles.cn16_700),
           ),
         ),
       ),

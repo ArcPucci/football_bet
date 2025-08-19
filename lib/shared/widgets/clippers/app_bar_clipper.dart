@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CutCornerClipper extends CustomClipper<Path> {
+class AppBarClipper extends CustomClipper<Path> {
   final double radius;
   final double cutRectWidth;
   final double cutRectHeight;
 
-  CutCornerClipper({
+  AppBarClipper({
     required this.radius,
     required this.cutRectWidth,
     required this.cutRectHeight,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../core/core.dart';
+import '../../../core/core.dart';
 
 class ButtonWithText extends StatelessWidget {
   const ButtonWithText({
@@ -27,7 +27,7 @@ class ButtonWithText extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         alignment: Alignment.center,
-        child: Text(text, style: AppTextStyles.subtitle),
+        child: Text(text, style: AppTextStyles.cn15_700),
       ),
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_bet/core/core.dart';
 import 'package:football_bet/shared/widgets.dart';
-import 'widgets/widgets.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -40,27 +39,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ButtonWithText(text: "NEXT", onTap: next),
-                  SizedBox(
-                    width: 28.r,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: List.generate(3, (index) {
-                        final active = index == _index;
-                        return AnimatedContainer(
-                          duration: Duration(milliseconds: 300),
-                          width: active ? 10.r : 6.r,
-                          height: active ? 10.r : 6.r,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: active ? Colors.white : null,
-                            border: active
-                                ? null
-                                : Border.all(width: 1.sp, color: Colors.white),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
+                  CustomPageIndicator(selected: _index),
                   ButtonWithText(text: "SKIP", buttonColor: AppTheme.black),
                 ],
               ),
