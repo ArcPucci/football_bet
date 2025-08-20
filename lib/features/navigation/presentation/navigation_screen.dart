@@ -12,16 +12,18 @@ class NavigationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasNavBar = !path.contains('settings') && !path.contains('profile');
     return Material(
       color: AppTheme.black2,
       child: Stack(
         alignment: Alignment.center,
         children: [
           Positioned.fill(child: child),
-          Positioned(
-            bottom: 6.r,
-            child: SafeArea(child: CustomNavBar(path: path)),
-          ),
+          if (hasNavBar)
+            Positioned(
+              bottom: 6.r,
+              child: SafeArea(child: CustomNavBar(path: path)),
+            ),
         ],
       ),
     );

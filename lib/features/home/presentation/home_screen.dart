@@ -39,7 +39,10 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(top: 0, child: CustomAppBar(text: "HOME")),
+        Positioned(
+          top: 0,
+          child: CustomAppBar(text: "HOME", child: ProfileButtons()),
+        ),
       ],
     );
   }

@@ -14,7 +14,7 @@ class CustomAppBar extends StatelessWidget {
 
   final bool hasBack;
   final String text;
-  final List<Widget>? child;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +48,15 @@ class CustomAppBar extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 5.w),
+                    Text('back', style: AppTextStyles.cn16_700),
                   ],
-                  Text(text, style: AppTextStyles.cn16_700),
+                  if (!hasBack) Text(text, style: AppTextStyles.cn16_700),
                 ],
               ),
             ),
           ),
         ),
-        Positioned(right: 0, bottom: 0, child: ProfileButtons()),
+        if (child != null) Positioned(right: 0, bottom: 0, child: child!),
       ],
     );
   }

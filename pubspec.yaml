@@ -99,6 +99,10 @@ flutter:
           weight: 400
         - asset: assets/fonts/ChangelingNeoLight.otf
           weight: 300
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter_24pt-Medium.ttf
+          weight: 500
     - family: ChangelingNeoStencil
       fonts:
         - asset: assets/fonts/ChangelingNeoStencil.otf

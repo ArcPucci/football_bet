@@ -4,9 +4,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/core.dart';
 
 class CustomButton2 extends StatelessWidget {
-  const CustomButton2({super.key, required this.text, this.onTap});
+  const CustomButton2({
+    super.key,
+    required this.text,
+    this.onTap,
+    this.width,
+    this.height,
+    this.textStyle,
+    this.borderRadius,
+    this.color,
+  });
 
   final String text;
+  final double? width;
+  final double? height;
+  final TextStyle? textStyle;
+  final double? borderRadius;
+  final Color? color;
   final VoidCallback? onTap;
 
   @override
@@ -14,14 +28,14 @@ class CustomButton2 extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 245.w,
-        height: 45.h,
+        width: width ?? 245.w,
+        height: height ?? 45.h,
         decoration: BoxDecoration(
-          color: AppTheme.red,
-          borderRadius: BorderRadius.circular(20),
+          color: color ?? AppTheme.red,
+          borderRadius: BorderRadius.circular(borderRadius ?? 20),
         ),
         alignment: Alignment.center,
-        child: Text(text, style: AppTextStyles.cns15),
+        child: Text(text, style: textStyle ?? AppTextStyles.cns15),
       ),
     );
   }

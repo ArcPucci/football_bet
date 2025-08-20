@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_bet/features/home/home.dart';
+import 'package:football_bet/features/mails/mails.dart';
 import 'package:go_router/go_router.dart';
 
 import 'features/navigation/navigation.dart';
+import 'features/profile/profile.dart';
 
 void main() {
   runZonedGuarded(
@@ -52,7 +54,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final router = GoRouter(
-    initialLocation: '/details',
+    initialLocation: '/profile/edit',
     routes: [
       GoRoute(path: '/welcome', builder: (context, state) => HomeScreen()),
       ShellRoute(
@@ -75,6 +77,33 @@ class _MyAppState extends State<MyApp> {
                   child: DetailsScreen(),
                 ),
               ),
+              GoRoute(
+                path: 'settings',
+                pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: SettingsScreen(),
+                ),
+              ),
+              GoRoute(
+                path: 'profile',
+                pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: ProfileScreen(),
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'edit',
+                    pageBuilder: (context, state) =>
+                        buildPageWithDefaultTransition(
+                          context: context,
+                          state: state,
+                          child: ProfileEditScreen(),
+                        ),
+                  ),
+                ],
+              ),
             ],
           ),
           GoRoute(
@@ -84,6 +113,24 @@ class _MyAppState extends State<MyApp> {
               state: state,
               child: SizedBox(),
             ),
+            routes: [
+              GoRoute(
+                path: 'settings',
+                pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: SettingsScreen(),
+                ),
+              ),
+              GoRoute(
+                path: 'profile',
+                pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: ProfileScreen(),
+                ),
+              ),
+            ],
           ),
           GoRoute(
             path: '/chart',
@@ -92,14 +139,50 @@ class _MyAppState extends State<MyApp> {
               state: state,
               child: SizedBox(),
             ),
+            routes: [
+              GoRoute(
+                path: 'settings',
+                pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: SettingsScreen(),
+                ),
+              ),
+              GoRoute(
+                path: 'profile',
+                pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: ProfileScreen(),
+                ),
+              ),
+            ],
           ),
           GoRoute(
             path: '/mail',
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context,
               state: state,
-              child: SizedBox(),
+              child: MailsScreen(),
             ),
+            routes: [
+              GoRoute(
+                path: 'settings',
+                pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: SettingsScreen(),
+                ),
+              ),
+              GoRoute(
+                path: 'profile',
+                pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: ProfileScreen(),
+                ),
+              ),
+            ],
           ),
         ],
       ),
