@@ -52,6 +52,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final router = GoRouter(
+    initialLocation: '/details',
     routes: [
       GoRoute(path: '/welcome', builder: (context, state) => HomeScreen()),
       ShellRoute(
@@ -65,6 +66,16 @@ class _MyAppState extends State<MyApp> {
               state: state,
               child: HomeScreen(),
             ),
+            routes: [
+              GoRoute(
+                path: 'details',
+                pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: DetailsScreen(),
+                ),
+              ),
+            ],
           ),
           GoRoute(
             path: '/category',

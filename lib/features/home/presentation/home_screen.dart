@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_bet/core/theme/theme.dart';
 import 'package:football_bet/features/home/home.dart';
 import 'package:football_bet/shared/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -26,7 +27,7 @@ class HomeScreen extends StatelessWidget {
                   child: ListView.separated(
                     padding: EdgeInsets.symmetric(vertical: 15.h),
                     itemBuilder: (context, index) {
-                      return GameCard();
+                      return GameCard(onTap: () => context.go('/details'));
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return SizedBox(height: 20.h);

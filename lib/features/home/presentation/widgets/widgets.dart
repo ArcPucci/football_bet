@@ -4,3 +4,5 @@ export 'soccer_card.dart';
 export 'football_card.dart';
 export 'basketball_card.dart';
 export 'cards/cards.dart';
+export 'commands_logo.dart';
+export 'bets_box.dart';

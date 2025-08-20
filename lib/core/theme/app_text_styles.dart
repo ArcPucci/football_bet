@@ -14,11 +14,33 @@ class AppTextStyles {
     color: Colors.white,
   );
 
+  static final TextStyle cns15 = TextStyle(
+    fontFamily: _cns,
+    fontSize: 15.r,
+    height: 1,
+    color: Colors.white,
+  );
+
+  static final TextStyle cns16 = TextStyle(
+    fontFamily: _cns,
+    fontSize: 16.r,
+    height: 1,
+    color: Colors.white,
+  );
+
   static final TextStyle cn20_700 = TextStyle(
     fontFamily: _cn,
     fontSize: 20.r,
     height: 1,
     fontWeight: FontWeight.w700,
+    color: Colors.white,
+  );
+
+  static final TextStyle cn15_400 = TextStyle(
+    fontFamily: _cn,
+    fontSize: 15.r,
+    height: 1,
+    fontWeight: FontWeight.w400,
     color: Colors.white,
   );
 
@@ -59,6 +81,43 @@ class AppTextStyles {
     fontSize: 32.r,
     height: 1,
     fontWeight: FontWeight.w700,
+    color: Colors.white,
+  );
+
+  static final TextStyle cn10_400 = TextStyle(
+    fontFamily: _cn,
+    fontSize: 10.r,
+    height: 1,
+    fontWeight: FontWeight.w400,
+    color: AppTheme.red,
+  );
+
+  static final TextStyle cn10_700 = TextStyle(
+    fontFamily: _cn,
+    fontSize: 10.r,
+    height: 1.9,
+    fontWeight: FontWeight.w700,
+    color: Colors.white,
+  );
+
+  static final TextStyle cns10 = TextStyle(
+    fontFamily: _cns,
+    fontSize: 10.r,
+    height: 1,
+    color: Colors.white,
+  );
+
+  static final TextStyle cns12 = TextStyle(
+    fontFamily: _cns,
+    fontSize: 12.r,
+    height: 1,
+    color: Colors.white,
+  );
+
+  static final TextStyle cns32 = TextStyle(
+    fontFamily: _cns,
+    fontSize: 32.r,
+    height: 1,
     color: Colors.white,
   );
 }
