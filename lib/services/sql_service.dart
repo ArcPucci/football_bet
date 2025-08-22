@@ -42,6 +42,32 @@ class SqlService {
         rating $intType
       )
     ''');
+    await db.execute('''
+      CREATE TABLE $playersTable (
+        id $idType,
+        event_id $intType,
+        name $textType,
+        photo $textType,
+        first_participant_wins $intType
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE $eventsTable (
+        id $idType,
+        first_team $textType,
+        second_team $textType,
+        first_team_score $intType,
+        second_team_score $intType,
+        sport_type $intType,
+        odd1 $textType,
+        odd2 $textType,
+        odd3 $textType,
+        description $textType,
+        start_time $intType,
+        owner_bet $intType,
+        win $intType
+      )
+    ''');
   }
 
   Future<void> close() async {

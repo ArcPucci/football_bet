@@ -21,14 +21,14 @@ class CommandsLogo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(
-            'assets/png/man_city.png',
+            firstLogo,
             width: 63.r,
             height: 63.r,
             fit: BoxFit.fill,
           ),
           Text("VS", style: AppTextStyles.cn20_700),
           Image.asset(
-            'assets/png/norwich_city.png',
+            secondLogo,
             width: 63.r,
             height: 63.r,
             fit: BoxFit.fill,

@@ -9,13 +9,18 @@ import '../models/models.dart';
 enum EventCreateStatus { addPlayer, eventDetails }
 
 class EventCreateProvider extends ChangeNotifier {
+  final EventsProvider _eventsProvider;
   final TeamsProvider _teamsProvider;
+  final RouterProvider _routerProvider;
   final SportType _sportType;
 
   EventCreateProvider({
+    required EventsProvider eventsProvider,
     required TeamsProvider teamsProvider,
     required RouterProvider routerProvider,
-  }) : _teamsProvider = teamsProvider,
+  }) : _eventsProvider = eventsProvider,
+       _teamsProvider = teamsProvider,
+       _routerProvider = routerProvider,
        _sportType = routerProvider.sportType {
     init();
   }
@@ -46,19 +51,19 @@ class EventCreateProvider extends ChangeNotifier {
     (e) => e.photo != null && e.controller.text.isNotEmpty,
   );
 
-  TextEditingController? _winController;
-  TextEditingController? _drawController;
-  TextEditingController? _loseController;
+  final TextEditingController _winController = TextEditingController();
+  final TextEditingController _drawController = TextEditingController();
+  final TextEditingController _loseController = TextEditingController();
 
-  TextEditingController? get winController => _winController;
+  TextEditingController get winController => _winController;
 
-  TextEditingController? get drawController => _drawController;
+  TextEditingController get drawController => _drawController;
 
-  TextEditingController? get loseController => _loseController;
+  TextEditingController get loseController => _loseController;
 
-  TextEditingController? _descriptionController;
+  final TextEditingController _descriptionController = TextEditingController();
 
-  TextEditingController? get descriptionController => _descriptionController;
+  TextEditingController get descriptionController => _descriptionController;
 
   int _days = 0;
 
@@ -76,7 +81,7 @@ class EventCreateProvider extends ChangeNotifier {
 
   TeamModel? get selectedTeam => _selectedTeam;
 
-  List<LeagueModel> _leagues = [];
+  final List<LeagueModel> _leagues = [];
 
   List<LeagueModel> get leagues => _leagues;
 
@@ -110,6 +115,35 @@ class EventCreateProvider extends ChangeNotifier {
     _hours = hours;
     _minutes = minutes;
     notifyListeners();
+  }
+
+  void createEvent() async {
+    if (firstModel == null || secondModel == null) return;
+    if (_winController.text.isEmpty ||
+        _drawController.text.isEmpty ||
+        _loseController.text.isEmpty ||
+        _descriptionController.text.isEmpty) {
+      return;
+    }
+    if (_days + _hours + _minutes == 0) return;
+
+    final event = Event(
+      id: 0,
+      sportType: _sportType,
+      firstTeam: firstModel!,
+      secondTeam: secondModel!,
+      odd1: double.parse(_winController.text),
+      odd2: double.parse(_loseController.text),
+      odd3: double.parse(_drawController.text),
+      description: _descriptionController.text,
+      firstTeamScore: 0,
+      secondTeamScore: 0,
+      startTime: DateTime.now().add(
+        Duration(days: _days, hours: _hours, minutes: _minutes),
+      ),
+    );
+
+    _eventsProvider.createEvent(event, _playerModels);
   }
 
   void selectTeam(bool firstTeamSelected) {

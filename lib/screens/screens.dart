@@ -1,5 +1,6 @@
 export 'create_event_screen.dart';
-export 'details_screen.dart';
+export 'event_details_screen.dart';
+export 'my_bets_screen.dart';
 export 'events_screen.dart';
 export 'home_screen.dart';
 export 'mails_screen.dart';

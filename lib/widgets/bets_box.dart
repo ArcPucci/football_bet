@@ -4,10 +4,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utils/utils.dart';
 
 class BetsBox extends StatelessWidget {
-  const BetsBox({super.key});
+  const BetsBox({
+    super.key,
+    required this.win,
+    required this.loss,
+    required this.draw,
+  });
+
+  final double win;
+  final double loss;
+  final double draw;
 
   @override
   Widget build(BuildContext context) {
+    final list = [win, loss, draw];
     return Container(
       width: 289.w,
       height: 41.h,
@@ -34,7 +44,7 @@ class BetsBox extends StatelessWidget {
                   "1x",
                   style: AppTextStyles.cn12_400.copyWith(color: AppTheme.grey),
                 ),
-                Text("3.56", style: AppTextStyles.cn12_700),
+                Text(list[index].toString(), style: AppTextStyles.cn12_700),
               ],
             ),
           );

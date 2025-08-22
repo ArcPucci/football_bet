@@ -14,6 +14,7 @@ class CreateEventScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (BuildContext context) {
         return EventCreateProvider(
+          eventsProvider: context.read<EventsProvider>(),
           teamsProvider: context.read<TeamsProvider>(),
           routerProvider: context.read<RouterProvider>(),
         );
@@ -140,6 +141,12 @@ class CreateEventScreen extends StatelessWidget {
           hours: value.hours,
           minutes: value.minutes,
           onSave: value.updateDuration,
+        ),
+        SizedBox(height: 25.h),
+        CustomButton2(
+          text: "START Events",
+          width: 261.w,
+          onTap: value.createEvent,
         ),
       ],
     );

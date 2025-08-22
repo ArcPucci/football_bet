@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:football_bet/models/models.dart';
 
 import '../../utils/utils.dart';
 import '../widgets.dart';
 
 class GameCard extends StatelessWidget {
-  const GameCard({super.key, this.onTap});
+  const GameCard({super.key, this.onTap, required this.eventModel});
 
+  final EventModel eventModel;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
+    final firstTeam = eventModel.event.firstTeam;
+    final secondTeam = eventModel.event.secondTeam;
+
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
@@ -27,13 +32,26 @@ class GameCard extends StatelessWidget {
                 fit: BoxFit.fitWidth,
               ),
             ),
-            Positioned(
-              bottom: 20.h,
-              child: Text(
-                "WILL END IN: 1D:12H:30M",
-                style: AppTextStyles.cn15_700,
+            if (!eventModel.event.isOver)
+              Positioned(
+                bottom: 20.h,
+                child: Text(
+                  "WILL END IN: ${eventModel.event.days}D:${eventModel.event.hours}H:${eventModel.event.minutes}M",
+                  style: AppTextStyles.cn15_700,
+                ),
               ),
-            ),
+            if (eventModel.event.isOver)
+              Positioned(
+                bottom: 5.h,
+                child: CustomButton2(
+                  text: "ADD RESULT",
+                  width: 304.w,
+                  height: 45.h,
+                  color: Colors.white,
+                  textStyle: AppTextStyles.cns15.copyWith(color: AppTheme.red),
+                  onTap: onTap,
+                ),
+              ),
             Positioned(
               top: 0,
               child: Container(
@@ -50,9 +68,10 @@ class GameCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/png/soccer_ball.png',
+                          'assets/png/soccer_ball_2.png',
                           width: 20.r,
                           height: 20.r,
+                          color: Colors.white,
                           fit: BoxFit.fill,
                         ),
                         SizedBox(width: 5.w),
@@ -61,8 +80,8 @@ class GameCard extends StatelessWidget {
                     ),
                     SizedBox(height: 7.h),
                     CommandsLogo(
-                      firstLogo: 'assets/png/man_city.png',
-                      secondLogo: 'assets/png/norwich_city.png',
+                      firstLogo: firstTeam.logo,
+                      secondLogo: secondTeam.logo,
                     ),
                     SizedBox(height: 10.h),
                     SizedBox(
@@ -70,21 +89,37 @@ class GameCard extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "MAN\nCITY",
-                            style: AppTextStyles.cn12_700,
-                            textAlign: TextAlign.center,
+                          SizedBox(
+                            width: 63.r,
+                            child: FittedBox(
+                              fit: BoxFit.none,
+                              child: Text(
+                                firstTeam.name,
+                                style: AppTextStyles.cn12_700,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                           ),
-                          Text(
-                            "Norwich\nCity",
-                            style: AppTextStyles.cn12_700,
-                            textAlign: TextAlign.center,
+                          SizedBox(
+                            width: 63.r,
+                            child: FittedBox(
+                              fit: BoxFit.none,
+                              child: Text(
+                                secondTeam.name,
+                                style: AppTextStyles.cn12_700,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     ),
                     Spacer(),
-                    BetsBox(),
+                    BetsBox(
+                      win: eventModel.event.odd1,
+                      loss: eventModel.event.odd2,
+                      draw: eventModel.event.odd3,
+                    ),
                   ],
                 ),
               ),

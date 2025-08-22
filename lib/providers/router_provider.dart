@@ -14,9 +14,8 @@ class RouterProvider extends ChangeNotifier {
   String get fullPath => _router.routerDelegate.currentConfiguration.fullPath;
 
   void goToCreateEvent(SportType sportType) {
-    print(sportType);
     _sportType = sportType;
-    _router.go('/events/create');
+    _router.go('/create');
   }
 
   void goToSettings() {
@@ -25,5 +24,9 @@ class RouterProvider extends ChangeNotifier {
     } else {
       _router.go('$fullPath/settings');
     }
+  }
+
+  void goToDetails() {
+    _router.go('/events/details');
   }
 }

@@ -2,14 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_bet/widgets/widgets.dart';
 
+import '../models/models.dart';
 import '../utils/utils.dart';
 
 class CommandScore extends StatelessWidget {
-  const CommandScore({super.key});
+  const CommandScore({
+    super.key,
+    required this.primaryColor,
+    required this.team,
+    this.onChangeScore,
+  });
+
+  final TeamModel team;
+  final Color primaryColor;
+  final void Function(int)? onChangeScore;
 
   @override
   Widget build(BuildContext context) {
-    return                             Container(
+    return Container(
       width: 286.w,
       height: 60.h,
       decoration: BoxDecoration(
@@ -19,18 +29,25 @@ class CommandScore extends StatelessWidget {
       padding: EdgeInsets.only(left: 10.w, right: 12.w),
       child: Row(
         children: [
-          Image.asset(
-            'assets/png/man_city.png',
-            width: 38.r,
-            height: 38.r,
-            fit: BoxFit.fill,
+          ClipOval(
+            child: Image.asset(
+              team.logo,
+              width: 38.r,
+              height: 38.r,
+              fit: BoxFit.cover,
+            ),
           ),
           SizedBox(width: 10.w),
-          Text("MAN CITY", style: AppTextStyles.cns12),
-          Spacer(),
+          Expanded(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(team.name, style: AppTextStyles.cns12),
+            ),
+          ),
+          SizedBox(width: 10.w),
           NumberPicker(
-            primaryColor: AppTheme.green,
-            onChanged: (value) {},
+            primaryColor: primaryColor,
+            onChanged: onChangeScore,
           ),
         ],
       ),

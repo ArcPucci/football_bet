@@ -75,11 +75,39 @@ class _MyAppState extends State<MyApp> {
             ),
             routes: [
               GoRoute(
+                path: 'create',
+                pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: CreateEventScreen(),
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'settings',
+                    pageBuilder: (context, state) =>
+                        buildPageWithDefaultTransition(
+                          context: context,
+                          state: state,
+                          child: SettingsScreen(),
+                        ),
+                  ),
+                  GoRoute(
+                    path: 'teams',
+                    pageBuilder: (context, state) =>
+                        buildPageWithDefaultTransition(
+                          context: context,
+                          state: state,
+                          child: TeamsScreen(),
+                        ),
+                  ),
+                ],
+              ),
+              GoRoute(
                 path: 'details',
                 pageBuilder: (context, state) => buildPageWithDefaultTransition(
                   context: context,
                   state: state,
-                  child: DetailsScreen(),
+                  child: EventDetailsScreen(),
                 ),
               ),
               GoRoute(
@@ -116,7 +144,7 @@ class _MyAppState extends State<MyApp> {
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context,
               state: state,
-              child: SizedBox(),
+              child: MyBetsScreen(),
             ),
             routes: [
               GoRoute(
@@ -163,11 +191,12 @@ class _MyAppState extends State<MyApp> {
                 routes: [
                   GoRoute(
                     path: 'settings',
-                    pageBuilder: (context, state) => buildPageWithDefaultTransition(
-                      context: context,
-                      state: state,
-                      child: SettingsScreen(),
-                    ),
+                    pageBuilder: (context, state) =>
+                        buildPageWithDefaultTransition(
+                          context: context,
+                          state: state,
+                          child: SettingsScreen(),
+                        ),
                   ),
                   GoRoute(
                     path: 'teams',
@@ -179,6 +208,14 @@ class _MyAppState extends State<MyApp> {
                         ),
                   ),
                 ],
+              ),
+              GoRoute(
+                path: 'details',
+                pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                  context: context,
+                  state: state,
+                  child: EventDetailsScreen(),
+                ),
               ),
             ],
           ),
@@ -244,6 +281,19 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         Provider(create: (context) => TeamsService(widget.sqlService.database)),
+        Provider(
+          create: (context) => PlayersService(widget.sqlService.database),
+        ),
+        Provider(
+          create: (context) => EventsService(widget.sqlService.database),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => EventsProvider(
+            eventsService: Provider.of(context, listen: false),
+            playersService: Provider.of(context, listen: false),
+            router: router,
+          ),
+        ),
         ChangeNotifierProvider(
           create: (context) =>
               TeamsProvider(Provider.of(context, listen: false), router),

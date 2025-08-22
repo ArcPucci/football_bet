@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:football_bet/models/models.dart';
 
 class TeamModel {
@@ -16,6 +18,24 @@ class TeamModel {
     required this.logo,
     required this.rating,
   });
+
+  String get shortName {
+    final parts = name
+        .trim()
+        .split(RegExp(r'\s+'))
+        .where((p) => p.isNotEmpty)
+        .toList();
+
+    if (parts.isEmpty) return "";
+
+    if (parts.length == 1) {
+      final word = parts.first;
+      final length = word.length < 3 ? word.length : 3;
+      return word.substring(0, length).toUpperCase();
+    } else {
+      return parts.map((p) => p[0].toUpperCase()).take(2).join();
+    }
+  }
 
   bool get logoFromAsset => logo.startsWith('assets/png/');
 
@@ -80,4 +100,10 @@ class TeamModel {
       rating: rating ?? this.rating,
     );
   }
+
+  @override
+  String toString() => jsonEncode(toMap());
+
+  factory TeamModel.fromString(String source) =>
+      TeamModel.fromMap(jsonDecode(source) as Map<String, dynamic>);
 }

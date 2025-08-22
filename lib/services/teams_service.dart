@@ -12,6 +12,12 @@ var sportsId = {
   SportType.basketball: 2,
 };
 
+var sportsName = {
+  0: SportType.soccer,
+  1: SportType.football,
+  2: SportType.basketball,
+};
+
 class TeamsService {
   final Database _database;
 

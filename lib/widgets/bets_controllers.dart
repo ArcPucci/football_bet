@@ -29,6 +29,11 @@ class BetsControllers extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(3, (index) {
+          final controller = index == 0
+              ? winController
+              : index == 1
+              ? loseController
+              : drawController;
           return Container(
             width: 90.w,
             height: 35.h,
@@ -46,6 +51,7 @@ class BetsControllers extends StatelessWidget {
                 ),
                 Expanded(
                   child: TextField(
+                    controller: controller,
                     textAlign: TextAlign.right,
                     style: AppTextStyles.cns12,
                     inputFormatters: [
