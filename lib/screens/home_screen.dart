@@ -1,13 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_bet/providers/providers.dart';
+import 'package:football_bet/services/services.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!context.read<ConfigPreferences>().getShownMessage()) {
+        context.read<ConfigPreferences>().setShownMessage();
+        showMessage();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +70,16 @@ class HomeScreen extends StatelessWidget {
           child: CustomAppBar(text: "HOME", child: ProfileButtons()),
         ),
       ],
+    );
+  }
+
+  void showMessage() {
+    showDialog(
+      context: context,
+      useSafeArea: false,
+      builder: (context) {
+        return MessageDialog();
+      },
     );
   }
 }

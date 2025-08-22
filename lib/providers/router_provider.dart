@@ -15,7 +15,7 @@ class RouterProvider extends ChangeNotifier {
 
   void goToCreateEvent(SportType sportType) {
     _sportType = sportType;
-    _router.go('/create');
+    _router.go('/events/create');
   }
 
   void goToSettings() {
@@ -23,6 +23,14 @@ class RouterProvider extends ChangeNotifier {
       _router.go('/settings');
     } else {
       _router.go('$fullPath/settings');
+    }
+  }
+
+  void goToProfile() {
+    if (fullPath == '/') {
+      _router.go('/profile');
+    } else {
+      _router.go('$fullPath/profile');
     }
   }
 

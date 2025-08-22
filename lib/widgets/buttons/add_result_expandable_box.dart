@@ -29,43 +29,46 @@ class _AddResultExpandableBoxState extends State<AddResultExpandableBox> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 325.w,
-      child: ExpandableBox(
-        triggerBuilder: (context, toggle, toggled) {
-          return CustomButton1(
-            text: "ENTER THE RESULTS",
-            onTap: toggle,
-            toggled: toggled,
-          );
-        },
-        child: Container(
-          width: 325.w,
-          height: 233.h,
-          decoration: BoxDecoration(
-            color: AppTheme.black,
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
-          ),
-          padding: EdgeInsets.only(top: 20.h, bottom: 18.h),
-          child: Column(
-            children: [
-              CommandScore(
-                primaryColor: AppTheme.green,
-                team: widget.team1,
-                onChangeScore: (score) => _team1Score = score,
-              ),
-              SizedBox(height: 10.h),
-              CommandScore(
-                primaryColor: AppTheme.red,
-                team: widget.team2,
-                onChangeScore: (score) => _team2Score = score,
-              ),
-              Spacer(),
-              CustomButton2(
-                text: "CHECK WINNER",
-                onTap: () => widget.onAddResult(_team1Score, _team2Score),
-              ),
-            ],
+    return Opacity(
+      opacity: widget.active ? 1 : 0.5,
+      child: SizedBox(
+        width: 325.w,
+        child: ExpandableBox(
+          triggerBuilder: (context, toggle, toggled) {
+            return CustomButton1(
+              text: "ENTER THE RESULTS",
+              onTap: widget.active ? toggle : null,
+              toggled: toggled,
+            );
+          },
+          child: Container(
+            width: 325.w,
+            height: 233.h,
+            decoration: BoxDecoration(
+              color: AppTheme.black,
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+            ),
+            padding: EdgeInsets.only(top: 20.h, bottom: 18.h),
+            child: Column(
+              children: [
+                CommandScore(
+                  primaryColor: AppTheme.green,
+                  team: widget.team1,
+                  onChangeScore: (score) => _team1Score = score,
+                ),
+                SizedBox(height: 10.h),
+                CommandScore(
+                  primaryColor: AppTheme.red,
+                  team: widget.team2,
+                  onChangeScore: (score) => _team2Score = score,
+                ),
+                Spacer(),
+                CustomButton2(
+                  text: "CHECK WINNER",
+                  onTap: () => widget.onAddResult(_team1Score, _team2Score),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -17,6 +17,8 @@ class CreateEventScreen extends StatelessWidget {
           eventsProvider: context.read<EventsProvider>(),
           teamsProvider: context.read<TeamsProvider>(),
           routerProvider: context.read<RouterProvider>(),
+          notificationProvider: Provider.of(context, listen: false),
+          profileProvider: Provider.of(context, listen: false),
         );
       },
       child: Consumer<EventCreateProvider>(
@@ -157,26 +159,44 @@ class CreateEventScreen extends StatelessWidget {
       children: [
         Text("Add player", style: AppTextStyles.cns20),
         SizedBox(height: 20.h),
-        Container(
-          width: 355.w,
-          height: 60.h,
-          decoration: BoxDecoration(
-            color: AppTheme.black,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: Row(
-            children: [
-              SizedBox(width: 47.r, height: 47.r, child: Placeholder()),
-              SizedBox(width: 5.w),
-              Text("Max Abramchuk", style: AppTextStyles.cns14),
-              Spacer(),
-              Opacity(
-                opacity: 0.5,
-                child: Text("owner", style: AppTextStyles.cn10_400),
+        Consumer<ProfileProvider>(
+          builder: (context, value, Widget? child) {
+            return Container(
+              width: 355.w,
+              height: 60.h,
+              decoration: BoxDecoration(
+                color: AppTheme.black,
+                borderRadius: BorderRadius.circular(20),
               ),
-            ],
-          ),
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Row(
+                children: [
+                  AvatarCircle(
+                    photo: value.profilePhoto,
+                    bgColor: AppTheme.black3,
+                  ),
+                  SizedBox(width: 5.w),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          "${value.name} ${value.surname}",
+                          style: AppTextStyles.cns14,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 5.w),
+                  Opacity(
+                    opacity: 0.5,
+                    child: Text("owner", style: AppTextStyles.cn10_400),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
         Column(
           children: List.generate(value.playerModels.length, (index) {

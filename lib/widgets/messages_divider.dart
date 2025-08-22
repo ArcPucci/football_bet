@@ -10,17 +10,21 @@ class MessagesDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Opacity(opacity: 0.5, child: Text(text, style: AppTextStyles.cn14_400)),
-        SizedBox(width: 10.w),
-        Container(
-          width: 231.w,
-          height: 1.sp,
-          color: Colors.white.withValues(alpha: 0.5),
-        ),
-      ],
+    return SizedBox(
+      width: 370.w,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Opacity(opacity: 0.5, child: Text(text, style: AppTextStyles.cn14_400)),
+          SizedBox(width: 10.w),
+          Expanded(
+            child: Container(
+              height: 1.sp,
+              color: Colors.white.withValues(alpha: 0.5),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

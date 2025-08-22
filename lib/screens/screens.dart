@@ -10,3 +10,5 @@ export 'profile_edit_screen.dart';
 export 'settings_screen.dart';
 export 'teams_screen.dart';
 export 'welcome_screen.dart';
+export 'event_review_screen.dart';
+export 'leaderboard_screen.dart';

@@ -16,11 +16,35 @@ class EventsService {
     return await _database.insert(eventsTable, map);
   }
 
+  Future<Event?> getEventById(int id) async {
+    final map = await _database.query(
+      eventsTable,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    if(map.isEmpty) return null;
+
+    return Event.fromMap(map.first);
+  }
+
   Future<List<Event>> getActiveEvents() async {
     final map = await _database.query(
       eventsTable,
       where: 'win = ?',
       whereArgs: [-1],
+    );
+
+    if (map.isEmpty) return [];
+
+    return map.map(Event.fromMap).toList();
+  }
+
+  Future<List<Event>> getInactiveEventsBySportType(int sportType) async {
+    final map = await _database.query(
+      eventsTable,
+      where: 'sport_type = ? AND win = ? OR win = ? OR win = ?',
+      whereArgs: [sportType, 0, 1, 2],
     );
 
     if (map.isEmpty) return [];

@@ -68,14 +68,17 @@ class GameCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/png/soccer_ball_2.png',
+                          getIcon(eventModel.event.sportType),
                           width: 20.r,
                           height: 20.r,
                           color: Colors.white,
                           fit: BoxFit.fill,
                         ),
                         SizedBox(width: 5.w),
-                        Text("SOCCER", style: AppTextStyles.cn14_700),
+                        Text(
+                          getTitle(eventModel.event.sportType),
+                          style: AppTextStyles.cn14_700,
+                        ),
                       ],
                     ),
                     SizedBox(height: 7.h),
@@ -129,4 +132,16 @@ class GameCard extends StatelessWidget {
       ),
     );
   }
+
+  String getTitle(SportType sportType) => switch (sportType) {
+    SportType.soccer => 'SOCCER',
+    SportType.basketball => 'BASKETBALL',
+    SportType.football => 'FOOTBALL',
+  };
+
+  String getIcon(SportType sportType) => switch (sportType) {
+    SportType.soccer => 'assets/png/soccer_ball_2.png',
+    SportType.basketball => 'assets/png/basketball_ball.png',
+    SportType.football => 'assets/png/football_ball.png',
+  };
 }

@@ -35,8 +35,8 @@ class EventDetailsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 29.h),
                       CommandsLogo(
-                        firstLogo: 'assets/png/man_city.png',
-                        secondLogo: 'assets/png/norwich_city.png',
+                        firstLogo: team1.logo,
+                        secondLogo: team2.logo,
                       ),
                       SizedBox(height: 10.h),
                       SizedBox(
@@ -49,7 +49,7 @@ class EventDetailsScreen extends StatelessWidget {
                               child: FittedBox(
                                 fit: BoxFit.none,
                                 child: Text(
-                                  'MAN CITY',
+                                  team1.name,
                                   style: AppTextStyles.cns10,
                                 ),
                               ),
@@ -59,7 +59,7 @@ class EventDetailsScreen extends StatelessWidget {
                               child: FittedBox(
                                 fit: BoxFit.none,
                                 child: Text(
-                                  'NORWICH CITY',
+                                  team2.name,
                                   style: AppTextStyles.cns10,
                                 ),
                               ),
@@ -137,7 +137,7 @@ class EventDetailsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 30.h),
                       AddResultExpandableBox(
-                        active: !value.eventModel!.isOver,
+                        active: value.eventModel!.isOver,
                         team1: team1,
                         team2: team2,
                         onAddResult: value.completeEvent,

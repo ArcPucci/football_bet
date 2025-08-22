@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_bet/models/models.dart';
@@ -132,20 +130,10 @@ class PlayerBetCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Row(
                   children: [
-                    ClipOval(
-                      child: Image.file(
-                        File(player.photo),
-                        width: 45.r,
-                        height: 45.r,
-                        errorBuilder: (context, error, stack) {
-                          return SizedBox(
-                            width: 45.r,
-                            height: 45.r,
-                            child: Placeholder(),
-                          );
-                        },
-                        fit: BoxFit.cover,
-                      ),
+                    AvatarCircle(
+                      size: 45.r,
+                      photo: player.photo,
+                      bgColor: AppTheme.black3,
                     ),
                     SizedBox(width: 10.w),
                     Expanded(

@@ -52,6 +52,16 @@ class SqlService {
       )
     ''');
     await db.execute('''
+      CREATE TABLE $notificationsTable (
+        id $idType,
+        sport_type $intType,
+        first_team $textType,
+        second_team $textType,
+        remaining_time $intType,
+        seen $intType
+      )
+    ''');
+    await db.execute('''
       CREATE TABLE $eventsTable (
         id $idType,
         first_team $textType,

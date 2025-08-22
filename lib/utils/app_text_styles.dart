@@ -77,9 +77,25 @@ class AppTextStyles {
     color: AppTheme.red,
   );
 
+  static final TextStyle cn13_400 = TextStyle(
+    fontFamily: _cn,
+    fontSize: 13.r,
+    height: 1,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
+
   static final TextStyle cn12_700 = TextStyle(
     fontFamily: _cn,
     fontSize: 12.r,
+    height: 1,
+    fontWeight: FontWeight.w700,
+    color: Colors.white,
+  );
+
+  static final TextStyle cn24_700 = TextStyle(
+    fontFamily: _cn,
+    fontSize: 24.r,
     height: 1,
     fontWeight: FontWeight.w700,
     color: Colors.white,
@@ -142,6 +158,13 @@ class AppTextStyles {
   static final TextStyle cns20 = TextStyle(
     fontFamily: _cns,
     fontSize: 20.r,
+    height: 1,
+    color: Colors.white,
+  );
+
+  static final TextStyle cns24 = TextStyle(
+    fontFamily: _cns,
+    fontSize: 24.r,
     height: 1,
     color: Colors.white,
   );

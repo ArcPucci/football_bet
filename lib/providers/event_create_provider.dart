@@ -9,18 +9,22 @@ import '../models/models.dart';
 enum EventCreateStatus { addPlayer, eventDetails }
 
 class EventCreateProvider extends ChangeNotifier {
+  final ProfileProvider _profileProvider;
   final EventsProvider _eventsProvider;
   final TeamsProvider _teamsProvider;
-  final RouterProvider _routerProvider;
+  final NotificationProvider _notificationProvider;
   final SportType _sportType;
 
   EventCreateProvider({
+    required ProfileProvider profileProvider,
     required EventsProvider eventsProvider,
     required TeamsProvider teamsProvider,
     required RouterProvider routerProvider,
+    required NotificationProvider notificationProvider,
   }) : _eventsProvider = eventsProvider,
+       _profileProvider = profileProvider,
        _teamsProvider = teamsProvider,
-       _routerProvider = routerProvider,
+       _notificationProvider = notificationProvider,
        _sportType = routerProvider.sportType {
     init();
   }
@@ -89,9 +93,7 @@ class EventCreateProvider extends ChangeNotifier {
 
   List<TeamModel> get teams => _teams;
 
-  void init() {
-    print(_sportType);
-  }
+  void init() {}
 
   void addPlayer() {
     _playerModels.add(PlayerModel(controller: TextEditingController()));
@@ -144,6 +146,10 @@ class EventCreateProvider extends ChangeNotifier {
     );
 
     _eventsProvider.createEvent(event, _playerModels);
+    if (_profileProvider.notification) {
+      _notificationProvider.createNotification(event);
+    }
+    _profileProvider.addBet(event.sportType);
   }
 
   void selectTeam(bool firstTeamSelected) {

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
+import '../services/services.dart';
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';
 
@@ -39,9 +42,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ButtonWithText(text: "NEXT", onTap: next),
+                  ButtonWithText(
+                    text: _index == 2 ? "BACK" : "NEXT",
+                    onTap: next,
+                  ),
                   CustomPageIndicator(selected: _index),
-                  ButtonWithText(text: "SKIP", buttonColor: AppTheme.black),
+                  ButtonWithText(
+                    text: _index == 2 ? "START" : "SKIP",
+                    buttonColor: AppTheme.black,
+                    onTap: skip,
+                  ),
                 ],
               ),
             ),
@@ -115,8 +125,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 
+  void skip() {
+    if(_index == 2) {
+      Provider.of<ConfigPreferences>(context, listen: false).setFirstInit();
+      context.go('/');
+      return;
+    }
+
+    controller.animateToPage(
+      2,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
   void next() {
     if (_index == 2) {
+      controller.previousPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
       return;
     }
 

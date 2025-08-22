@@ -1,5 +1,7 @@
 export 'team_model.dart';
 export 'event_model.dart';
+export 'sport_model.dart';
+export 'notification_model.dart';
 export 'league_model.dart';
 export 'player.dart';
 export 'player_model.dart';

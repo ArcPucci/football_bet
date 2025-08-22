@@ -11,11 +11,13 @@ class CustomAppBar extends StatelessWidget {
     required this.text,
     this.child,
     this.hasBack = false,
+    this.onTap,
   });
 
   final bool hasBack;
   final String text;
   final Widget? child;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class CustomAppBar extends StatelessWidget {
                 children: [
                   if (hasBack) ...[
                     GestureDetector(
-                      onTap: context.pop,
+                      onTap: onTap ?? context.pop,
                       child: Image.asset(
                         'assets/png/back.png',
                         width: 24.r,

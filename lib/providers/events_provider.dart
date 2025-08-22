@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:football_bet/models/models.dart';
+import 'package:football_bet/providers/providers.dart';
 import 'package:football_bet/services/services.dart';
 import 'package:go_router/go_router.dart';
 
 class EventsProvider extends ChangeNotifier {
+  final ProfileProvider _profileProvider;
   final EventsService _eventsService;
   final PlayersService _playersService;
+  final LeaderboardProvider _leaderboardProvider;
   final GoRouter _router;
 
   List<Event> _inactiveEvents = [];
@@ -25,25 +28,29 @@ class EventsProvider extends ChangeNotifier {
   Player get player => Player(
     id: -1,
     eventId: _eventModel!.id,
-    name: '',
-    photo: '',
+    name: '${_profileProvider.name} ${_profileProvider.surname}',
+    photo: _profileProvider.profilePhoto ?? '',
     firstParticipantWins: _eventModel!.ownerBet,
   );
 
   List<Player> _players = [];
 
-  List<Player> get players => _players;
-
   EventsProvider({
+    required ProfileProvider profileProvider,
     required EventsService eventsService,
     required PlayersService playersService,
+    required LeaderboardProvider leaderboardProvider,
     required GoRouter router,
-  }) : _eventsService = eventsService,
+  }) : _profileProvider = profileProvider,
+       _eventsService = eventsService,
        _playersService = playersService,
+       _leaderboardProvider = leaderboardProvider,
        _router = router {
     _initActiveEvents();
     _initInactiveEvents();
   }
+
+  List<Player> get players => _players;
 
   void _initInactiveEvents() async {
     _inactiveEvents = await _eventsService.getInactiveEvents();
@@ -104,6 +111,7 @@ class EventsProvider extends ChangeNotifier {
     try {
       final id = await _eventsService.createEvent(eventModel);
       addPlayers(id, players);
+      print(players.length);
 
       _initActiveEvents();
       _initInactiveEvents();
@@ -115,7 +123,7 @@ class EventsProvider extends ChangeNotifier {
     }
   }
 
-  void updateEvent() async {
+  Future<void> updateEvent() async {
     await _eventsService.updateEvent(_eventModel!);
   }
 
@@ -123,7 +131,7 @@ class EventsProvider extends ChangeNotifier {
     await _playersService.updatePlayer(_players[index]);
   }
 
-  void completeEvent(int score1, int score2) {
+  void completeEvent(int score1, int score2) async {
     final result = score1 > score2
         ? 0
         : score1 < score2
@@ -132,11 +140,17 @@ class EventsProvider extends ChangeNotifier {
     _eventModel!.win = _eventModel!.ownerBet == result;
     _eventModel!.firstTeamScore = score1;
     _eventModel!.secondTeamScore = score2;
+    _profileProvider.addBet(_eventModel!.sportType);
 
-    updateEvent();
+    await updateEvent();
+    _leaderboardProvider.selectEvent(_eventModel!);
 
     _initActiveEvents();
     _initInactiveEvents();
+  }
+
+  void reviewEvent(Event event) async {
+    _leaderboardProvider.selectEvent(event);
   }
 
   void addPlayers(int eventId, List<PlayerModel> players) async {
@@ -150,5 +164,8 @@ class EventsProvider extends ChangeNotifier {
 
       await _playersService.createPlayer(player);
     }
+
+    _players = await _playersService.getPlayers(eventId);
+    notifyListeners();
   }
 }

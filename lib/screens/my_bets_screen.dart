@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_bet/providers/providers.dart';
 import 'package:provider/provider.dart';
 
-import '../utils/utils.dart';
 import '../widgets/widgets.dart';
 
 class MyBetsScreen extends StatelessWidget {
@@ -19,16 +18,13 @@ class MyBetsScreen extends StatelessWidget {
             child: Consumer<EventsProvider>(
               builder: (context, value, Widget? child) {
                 return ListView.separated(
-                  padding: EdgeInsets.symmetric(vertical: 85.h),
+                  padding: EdgeInsets.only(top: 75.h, bottom: 200.h),
                   itemBuilder: (BuildContext context, int index) {
+                    final event = value.inactiveEvents[index];
                     return Center(
-                      child: Container(
-                        width: 320.w,
-                        height: 263.h,
-                        decoration: BoxDecoration(
-                          color: AppTheme.red,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                      child: InactiveEventCard(
+                        event: event,
+                        onTap: () => value.reviewEvent(event),
                       ),
                     );
                   },
@@ -42,10 +38,7 @@ class MyBetsScreen extends StatelessWidget {
         ),
         Positioned(
           top: 0,
-          child: CustomAppBar(
-            text: 'My Bets',
-            child: ProfileButtons(),
-          ),
+          child: CustomAppBar(text: 'My Bets', child: ProfileButtons()),
         ),
       ],
     );

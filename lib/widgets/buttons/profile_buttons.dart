@@ -15,16 +15,23 @@ class ProfileButtons extends StatelessWidget {
       width: 218.w,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.r),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CustomIconButton(
-              asset: 'assets/png/settings.png',
-              onTap: provider.goToSettings,
-            ),
-            CustomIconButton(asset: 'assets/png/share.png'),
-            SizedBox(width: 47.r, height: 47.r, child: Placeholder()),
-          ],
+        child: Consumer<ProfileProvider>(
+          builder: (context, value, Widget? child) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomIconButton(
+                  asset: 'assets/png/settings.png',
+                  onTap: provider.goToSettings,
+                ),
+                CustomIconButton(
+                  asset: 'assets/png/share.png',
+                  onTap: value.shareApp,
+                ),
+                AvatarCircle(size: 47.r, photo: value.profilePhoto),
+              ],
+            );
+          },
         ),
       ),
     );
