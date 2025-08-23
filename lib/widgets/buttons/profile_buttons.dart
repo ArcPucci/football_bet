@@ -11,27 +11,32 @@ class ProfileButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<RouterProvider>(context);
-    return SizedBox(
-      width: 218.w,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.r),
-        child: Consumer<ProfileProvider>(
-          builder: (context, value, Widget? child) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomIconButton(
-                  asset: 'assets/png/settings.png',
-                  onTap: provider.goToSettings,
-                ),
-                CustomIconButton(
-                  asset: 'assets/png/share.png',
-                  onTap: value.shareApp,
-                ),
-                AvatarCircle(size: 47.r, photo: value.profilePhoto),
-              ],
-            );
-          },
+    return Center(
+      child: SizedBox(
+        width: 218.r,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.r),
+          child: Consumer<ProfileProvider>(
+            builder: (context, value, Widget? child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomIconButton(
+                    asset: 'assets/png/settings.png',
+                    onTap: provider.goToSettings,
+                  ),
+                  CustomIconButton(
+                    asset: 'assets/png/share.png',
+                    onTap: value.shareApp,
+                  ),
+                  GestureDetector(
+                    onTap: provider.goToProfile,
+                    child: AvatarCircle(size: 47.r, photo: value.profilePhoto),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

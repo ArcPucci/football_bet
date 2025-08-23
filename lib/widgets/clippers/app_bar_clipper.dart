@@ -27,9 +27,9 @@ class AppBarClipper extends CustomClipper<Path> {
       RRect.fromRectAndCorners(
         Rect.fromLTWH(
           0,
-          size.height - cutRectHeight,
+          0,
           size.width - cutRectWidth,
-          size.height - cutRectHeight,
+          size.height,
         ),
         bottomRight: Radius.circular(5),
       ),

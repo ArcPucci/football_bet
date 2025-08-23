@@ -59,7 +59,8 @@ class CustomAppBar extends StatelessWidget {
             ),
           ),
         ),
-        if (child != null) Positioned(right: 0, bottom: 0, child: child!),
+        if (child != null)
+          Positioned(width: 218.w, right: 0, bottom: 0, child: child!),
       ],
     );
   }
