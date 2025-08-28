@@ -87,35 +87,30 @@ class GameCard extends StatelessWidget {
                       secondLogo: secondTeam.logo,
                     ),
                     SizedBox(height: 10.h),
-                    SizedBox(
-                      width: 222.w,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: 63.r,
-                            child: FittedBox(
-                              fit: BoxFit.none,
-                              child: Text(
-                                firstTeam.name,
-                                style: AppTextStyles.cn12_700,
-                                textAlign: TextAlign.center,
-                              ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: 150.r,
+                          child: Center(
+                            child: Text(
+                              firstTeam.name,
+                              style: AppTextStyles.cn12_700,
+                              textAlign: TextAlign.center,
                             ),
                           ),
-                          SizedBox(
-                            width: 63.r,
-                            child: FittedBox(
-                              fit: BoxFit.none,
-                              child: Text(
-                                secondTeam.name,
-                                style: AppTextStyles.cn12_700,
-                                textAlign: TextAlign.center,
-                              ),
+                        ),
+                        SizedBox(
+                          width: 150.r,
+                          child: Center(
+                            child: Text(
+                              secondTeam.name,
+                              style: AppTextStyles.cn12_700,
+                              textAlign: TextAlign.center,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     Spacer(),
                     BetsBox(

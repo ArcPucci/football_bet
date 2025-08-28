@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,20 +22,30 @@ class CommandsLogo extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(
-            firstLogo,
-            width: 63.r,
-            height: 63.r,
-            fit: BoxFit.fill,
-          ),
+          _buildLogo(firstLogo),
           Text("VS", style: AppTextStyles.cn20_700),
-          Image.asset(
-            secondLogo,
-            width: 63.r,
-            height: 63.r,
-            fit: BoxFit.fill,
-          ),
+          _buildLogo(secondLogo),
         ],
+      ),
+    );
+  }
+
+  Widget _buildLogo(String logo) {
+    if (logo.startsWith('assets')) {
+      return Image.asset(
+        logo,
+        width: 63.r,
+        height: 63.r,
+        fit: BoxFit.fill,
+      );
+    }
+
+    return ClipOval(
+      child: Image.file(
+        File(logo),
+        width: 63.r,
+        height: 63.r,
+        fit: BoxFit.fill,
       ),
     );
   }

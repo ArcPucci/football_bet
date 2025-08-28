@@ -56,6 +56,12 @@ class TeamsProvider extends ChangeNotifier {
     _myTeams = await _teamsService.getTeams(_sportType);
   }
 
+  void reset() {
+    _firstModel = null;
+    _secondModel = null;
+    _selectedTeam = null;
+  }
+
   void onChangedLeague(int index) {
     final teams = _leagues[index].teams;
     _teams = List.from(teams);
@@ -104,8 +110,10 @@ class TeamsProvider extends ChangeNotifier {
   void selectTeam(TeamModel team) {
     _selectedTeam = team;
     if (_firstTeamSelected) {
+      if (_secondModel?.logo == team.logo) return;
       _firstModel = team;
     } else {
+      if (_firstModel?.logo == team.logo) return;
       _secondModel = team;
     }
     notifyListeners();

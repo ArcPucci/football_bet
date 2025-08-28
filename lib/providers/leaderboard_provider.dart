@@ -36,6 +36,7 @@ class LeaderboardProvider extends ChangeNotifier {
 
   void initEvents() async {
     print('object');
+    print(_sportModel.id);
     _events = await _eventsService.getInactiveEventsBySportType(_sportModel.id);
     notifyListeners();
   }

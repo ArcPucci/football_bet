@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_bet/providers/providers.dart';
@@ -20,6 +21,11 @@ void main() {
 
       final preferences = await SharedPreferences.getInstance();
       final configPreferences = ConfigPreferences(preferences);
+
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
 
       runApp(
         ScreenUtilInit(
@@ -76,11 +82,12 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     router = GoRouter(
-      initialLocation: widget.configPreferences.getFirstInit()
-          ? '/welcome'
-          : '/',
+      initialLocation: widget.configPreferences.getFirstInit() ? '/welcome' : '/',
       routes: [
-        GoRoute(path: '/welcome', builder: (context, state) => WelcomeScreen()),
+        GoRoute(
+          path: '/welcome',
+          builder: (context, state) => WelcomeScreen(),
+        ),
         ShellRoute(
           builder: (context, state, child) =>
               NavigationScreen(path: state.fullPath ?? '/', child: child),
@@ -102,46 +109,6 @@ class _MyAppState extends State<MyApp> {
                         child: EventDetailsScreen(),
                       ),
                 ),
-                GoRoute(
-                  path: 'settings',
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
-                        context: context,
-                        state: state,
-                        child: SettingsScreen(),
-                      ),
-                ),
-                GoRoute(
-                  path: 'profile',
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
-                        context: context,
-                        state: state,
-                        child: ProfileScreen(),
-                      ),
-                  routes: [
-                    GoRoute(
-                      path: 'edit',
-                      pageBuilder: (context, state) =>
-                          buildPageWithDefaultTransition(
-                            context: context,
-                            state: state,
-                            child: ProfileEditScreen(),
-                          ),
-                      routes: [
-                        GoRoute(
-                          path: 'settings',
-                          pageBuilder: (context, state) =>
-                              buildPageWithDefaultTransition(
-                                context: context,
-                                state: state,
-                                child: SettingsScreen(),
-                              ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
               ],
             ),
             GoRoute(
@@ -151,48 +118,6 @@ class _MyAppState extends State<MyApp> {
                 state: state,
                 child: MyBetsScreen(),
               ),
-              routes: [
-                GoRoute(
-                  path: 'settings',
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
-                        context: context,
-                        state: state,
-                        child: SettingsScreen(),
-                      ),
-                ),
-                GoRoute(
-                  path: 'profile',
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
-                        context: context,
-                        state: state,
-                        child: ProfileScreen(),
-                      ),
-                  routes: [
-                    GoRoute(
-                      path: 'edit',
-                      pageBuilder: (context, state) =>
-                          buildPageWithDefaultTransition(
-                            context: context,
-                            state: state,
-                            child: ProfileEditScreen(),
-                          ),
-                      routes: [
-                        GoRoute(
-                          path: 'settings',
-                          pageBuilder: (context, state) =>
-                              buildPageWithDefaultTransition(
-                                context: context,
-                                state: state,
-                                child: SettingsScreen(),
-                              ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
             ),
             GoRoute(
               path: '/events',
@@ -203,46 +128,6 @@ class _MyAppState extends State<MyApp> {
               ),
               routes: [
                 GoRoute(
-                  path: 'settings',
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
-                        context: context,
-                        state: state,
-                        child: SettingsScreen(),
-                      ),
-                ),
-                GoRoute(
-                  path: 'profile',
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
-                        context: context,
-                        state: state,
-                        child: ProfileScreen(),
-                      ),
-                  routes: [
-                    GoRoute(
-                      path: 'edit',
-                      pageBuilder: (context, state) =>
-                          buildPageWithDefaultTransition(
-                            context: context,
-                            state: state,
-                            child: ProfileEditScreen(),
-                          ),
-                      routes: [
-                        GoRoute(
-                          path: 'settings',
-                          pageBuilder: (context, state) =>
-                              buildPageWithDefaultTransition(
-                                context: context,
-                                state: state,
-                                child: SettingsScreen(),
-                              ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                GoRoute(
                   path: 'create',
                   pageBuilder: (context, state) =>
                       buildPageWithDefaultTransition(
@@ -251,46 +136,6 @@ class _MyAppState extends State<MyApp> {
                         child: CreateEventScreen(),
                       ),
                   routes: [
-                    GoRoute(
-                      path: 'settings',
-                      pageBuilder: (context, state) =>
-                          buildPageWithDefaultTransition(
-                            context: context,
-                            state: state,
-                            child: SettingsScreen(),
-                          ),
-                    ),
-                    GoRoute(
-                      path: 'profile',
-                      pageBuilder: (context, state) =>
-                          buildPageWithDefaultTransition(
-                            context: context,
-                            state: state,
-                            child: ProfileScreen(),
-                          ),
-                      routes: [
-                        GoRoute(
-                          path: 'edit',
-                          pageBuilder: (context, state) =>
-                              buildPageWithDefaultTransition(
-                                context: context,
-                                state: state,
-                                child: ProfileEditScreen(),
-                              ),
-                          routes: [
-                            GoRoute(
-                              path: 'settings',
-                              pageBuilder: (context, state) =>
-                                  buildPageWithDefaultTransition(
-                                    context: context,
-                                    state: state,
-                                    child: SettingsScreen(),
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
                     GoRoute(
                       path: 'teams',
                       pageBuilder: (context, state) =>
@@ -330,46 +175,6 @@ class _MyAppState extends State<MyApp> {
                         child: EventReviewScreen(),
                       ),
                 ),
-                GoRoute(
-                  path: 'settings',
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
-                        context: context,
-                        state: state,
-                        child: SettingsScreen(),
-                      ),
-                ),
-                GoRoute(
-                  path: 'profile',
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
-                        context: context,
-                        state: state,
-                        child: ProfileScreen(),
-                      ),
-                  routes: [
-                    GoRoute(
-                      path: 'edit',
-                      pageBuilder: (context, state) =>
-                          buildPageWithDefaultTransition(
-                            context: context,
-                            state: state,
-                            child: ProfileEditScreen(),
-                          ),
-                      routes: [
-                        GoRoute(
-                          path: 'settings',
-                          pageBuilder: (context, state) =>
-                              buildPageWithDefaultTransition(
-                                context: context,
-                                state: state,
-                                child: SettingsScreen(),
-                              ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
               ],
             ),
             GoRoute(
@@ -379,46 +184,33 @@ class _MyAppState extends State<MyApp> {
                 state: state,
                 child: MailsScreen(),
               ),
+            ),
+            GoRoute(
+              path: '/settings',
+              pageBuilder: (context, state) =>
+                  buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: SettingsScreen(),
+                  ),
+            ),
+            GoRoute(
+              path: '/profile',
+              pageBuilder: (context, state) =>
+                  buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: ProfileScreen(),
+                  ),
               routes: [
                 GoRoute(
-                  path: 'settings',
+                  path: 'edit',
                   pageBuilder: (context, state) =>
                       buildPageWithDefaultTransition(
                         context: context,
                         state: state,
-                        child: SettingsScreen(),
+                        child: ProfileEditScreen(),
                       ),
-                ),
-                GoRoute(
-                  path: 'profile',
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
-                        context: context,
-                        state: state,
-                        child: ProfileScreen(),
-                      ),
-                  routes: [
-                    GoRoute(
-                      path: 'edit',
-                      pageBuilder: (context, state) =>
-                          buildPageWithDefaultTransition(
-                            context: context,
-                            state: state,
-                            child: ProfileEditScreen(),
-                          ),
-                      routes: [
-                        GoRoute(
-                          path: 'settings',
-                          pageBuilder: (context, state) =>
-                              buildPageWithDefaultTransition(
-                                context: context,
-                                state: state,
-                                child: SettingsScreen(),
-                              ),
-                        ),
-                      ],
-                    ),
-                  ],
                 ),
               ],
             ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,22 +14,28 @@ class TeamLogoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: _buildLogo(),
-    );
+    return GestureDetector(onTap: onTap, child: _buildLogo());
   }
 
   Widget _buildLogo() {
     if (team != null) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(15),
-        child: Image.asset(
-          team!.logo,
-          width: 63.r,
-          height: 63.r,
-          fit: BoxFit.cover,
-        ),
+      if (team!.customTeam) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Image.file(
+            File(team!.logo),
+            width: 63.r,
+            height: 63.r,
+            fit: BoxFit.cover,
+          ),
+        );
+      }
+
+      return Image.asset(
+        team!.logo,
+        width: 63.r,
+        height: 63.r,
+        fit: BoxFit.cover,
       );
     }
 

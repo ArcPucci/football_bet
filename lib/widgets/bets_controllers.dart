@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utils/utils.dart';
 
 class BetsControllers extends StatelessWidget {
-  const BetsControllers({
+  BetsControllers({
     super.key,
     this.winController,
     this.drawController,
@@ -15,6 +15,8 @@ class BetsControllers extends StatelessWidget {
   final TextEditingController? winController;
   final TextEditingController? drawController;
   final TextEditingController? loseController;
+
+  final list = ['1x', 'x', '2x'];
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class BetsControllers extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "1x",
+                  list[index],
                   style: AppTextStyles.cn12_400.copyWith(color: AppTheme.grey),
                 ),
                 Expanded(

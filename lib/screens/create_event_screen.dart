@@ -95,22 +95,28 @@ class CreateEventScreen extends StatelessWidget {
         ),
         SizedBox(height: 10.h),
         SizedBox(
-          width: 286.w,
+          width: 330.w,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 63.r,
-                child: FittedBox(
-                  fit: BoxFit.none,
-                  child: Text(firstTeam, style: AppTextStyles.cns10),
+                width: 110.w,
+                child: Center(
+                  child: Text(
+                    firstTeam,
+                    style: AppTextStyles.cns10,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               SizedBox(
-                width: 63.r,
-                child: FittedBox(
-                  fit: BoxFit.none,
-                  child: Text(secondTeam, style: AppTextStyles.cns10),
+                width: 110.w,
+                child: Center(
+                  child: Text(
+                    secondTeam,
+                    style: AppTextStyles.cns10,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ],
@@ -145,10 +151,13 @@ class CreateEventScreen extends StatelessWidget {
           onSave: value.updateDuration,
         ),
         SizedBox(height: 25.h),
-        CustomButton2(
-          text: "START Events",
-          width: 261.w,
-          onTap: value.createEvent,
+        Opacity(
+          opacity: value.canStart ? 1 : 0.5,
+          child: CustomButton2(
+            text: "START Events",
+            width: 261.w,
+            onTap: value.createEvent,
+          ),
         ),
       ],
     );
@@ -206,6 +215,7 @@ class CreateEventScreen extends StatelessWidget {
               child: NewPlayerCard(
                 photo: model.photo,
                 controller: model.controller,
+                maxLength: 12,
                 onAddPhoto: () => value.pickImage(index),
                 onRemove: () => value.removePlayer(index),
               ),
@@ -230,10 +240,13 @@ class CreateEventScreen extends StatelessWidget {
                       buttonColor: AppTheme.black,
                       onTap: value.addPlayer,
                     ),
-                    ButtonWithText(
-                      text: 'CONTINUE',
-                      width: 175.w,
-                      onTap: value.nextStep,
+                    Opacity(
+                      opacity: value.canContinue ? 1 : 0.5,
+                      child: ButtonWithText(
+                        text: 'CONTINUE',
+                        width: 175.w,
+                        onTap: value.nextStep,
+                      ),
                     ),
                   ],
                 ),

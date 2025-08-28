@@ -172,10 +172,7 @@ class PlayerBetCard extends StatelessWidget {
           SizedBox(width: 10.w),
           Text("WIN", style: AppTextStyles.cns16),
           SizedBox(width: 5.r),
-          Padding(
-            padding: EdgeInsets.only(top: 4.r),
-            child: Text("→", style: AppTextStyles.cns20),
-          ),
+          Text("→", style: AppTextStyles.cns20.copyWith(height: 0.8)),
           SizedBox(width: 5.r),
           Text(
             "+1 win",
@@ -190,10 +187,7 @@ class PlayerBetCard extends StatelessWidget {
           SizedBox(width: 10.w),
           Text("LOSE", style: AppTextStyles.cns14),
           SizedBox(width: 5.r),
-          Padding(
-            padding: EdgeInsets.only(top: 4.r),
-            child: Text("→", style: AppTextStyles.cns16),
-          ),
+          Text("→", style: AppTextStyles.cns16.copyWith(height: 0.8)),
           SizedBox(width: 5.r),
           Text(
             "+1 lose",
@@ -207,10 +201,7 @@ class PlayerBetCard extends StatelessWidget {
         SizedBox(width: 8.r),
         Text("DRAW", style: AppTextStyles.cns12),
         SizedBox(width: 5.r),
-        Padding(
-          padding: EdgeInsets.only(top: 4.r),
-          child: Text("→", style: AppTextStyles.cns16),
-        ),
+        Text("→", style: AppTextStyles.cns16.copyWith(height: 0.8)),
         SizedBox(width: 5.r),
         Text("+1 draw", style: AppTextStyles.cns12),
       ],

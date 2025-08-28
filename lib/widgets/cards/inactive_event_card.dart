@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,6 +15,7 @@ class InactiveEventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final list = [event.firstTeam, event.secondTeam];
+    final list2 = ["WIN", "LOSS", "DRAW"];
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -31,7 +34,9 @@ class InactiveEventCard extends StatelessWidget {
               height: 33.h,
               decoration: BoxDecoration(
                 color: event.win! ? AppTheme.green : AppTheme.red2,
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(10),
+                ),
               ),
               alignment: Alignment.topCenter,
               child: Text(
@@ -66,12 +71,7 @@ class InactiveEventCard extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: List.generate(list.length, (index) {
-                      return Image.asset(
-                        list[index].logo,
-                        width: 40.r,
-                        height: 40.r,
-                        fit: BoxFit.fill,
-                      );
+                      return _buildLogo(list[index]);
                     }),
                   ),
                 ),
@@ -124,9 +124,12 @@ class InactiveEventCard extends StatelessWidget {
                                     color: AppTheme.black,
                                   ),
                                   alignment: Alignment.center,
-                                  child: Text(
-                                    "$score",
-                                    style: AppTextStyles.cns24,
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      "$score",
+                                      style: AppTextStyles.cns24,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -149,12 +152,7 @@ class InactiveEventCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: Row(
                 children: [
-                  Image.asset(
-                    event.firstTeam.logo,
-                    width: 40.r,
-                    height: 40.r,
-                    fit: BoxFit.fill,
-                  ),
+                  _buildLogo(event.firstTeam),
                   SizedBox(width: 10.w),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -184,7 +182,7 @@ class InactiveEventCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "WIN",
+                        list2[event.ownerBet],
                         style: AppTextStyles.cn12_400.copyWith(
                           color: Colors.white,
                         ),
@@ -235,5 +233,20 @@ class InactiveEventCard extends StatelessWidget {
       return "LOSE";
     }
     return "DRAW";
+  }
+
+  Widget _buildLogo(TeamModel team) {
+    if (team.customTeam) {
+      return ClipOval(
+        child: Image.file(
+          File(team.logo),
+          width: 40.r,
+          height: 40.r,
+          fit: BoxFit.fill,
+        ),
+      );
+    }
+
+    return Image.asset(team.logo, width: 40.r, height: 40.r, fit: BoxFit.fill);
   }
 }

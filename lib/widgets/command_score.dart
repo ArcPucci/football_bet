@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_bet/widgets/widgets.dart';
@@ -29,14 +31,7 @@ class CommandScore extends StatelessWidget {
       padding: EdgeInsets.only(left: 10.w, right: 12.w),
       child: Row(
         children: [
-          ClipOval(
-            child: Image.asset(
-              team.logo,
-              width: 38.r,
-              height: 38.r,
-              fit: BoxFit.cover,
-            ),
-          ),
+          _buildLogo(),
           SizedBox(width: 10.w),
           Expanded(
             child: FittedBox(
@@ -45,12 +40,24 @@ class CommandScore extends StatelessWidget {
             ),
           ),
           SizedBox(width: 10.w),
-          NumberPicker(
-            primaryColor: primaryColor,
-            onChanged: onChangeScore,
-          ),
+          NumberPicker(primaryColor: primaryColor, onChanged: onChangeScore),
         ],
       ),
     );
+  }
+
+  Widget _buildLogo() {
+    if (team.customTeam) {
+      return ClipOval(
+        child: Image.file(
+          File(team.logo),
+          width: 38.r,
+          height: 38.r,
+          fit: BoxFit.cover,
+        ),
+      );
+    }
+
+    return Image.asset(team.logo, width: 38.r, height: 38.r, fit: BoxFit.cover);
   }
 }

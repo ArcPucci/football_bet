@@ -19,19 +19,11 @@ class RouterProvider extends ChangeNotifier {
   }
 
   void goToSettings() {
-    if (fullPath == '/') {
-      _router.go('/settings');
-    } else {
-      _router.go('$fullPath/settings');
-    }
+    _router.push('/settings');
   }
 
   void goToProfile() {
-    if (fullPath == '/') {
-      _router.go('/profile');
-    } else {
-      _router.go('$fullPath/profile');
-    }
+    _router.push('/profile');
   }
 
   void goToDetails() {

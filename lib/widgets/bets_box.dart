@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utils/utils.dart';
 
 class BetsBox extends StatelessWidget {
-  const BetsBox({
+  BetsBox({
     super.key,
     required this.win,
     required this.loss,
@@ -14,6 +14,8 @@ class BetsBox extends StatelessWidget {
   final double win;
   final double loss;
   final double draw;
+
+  final list2 = ['1x', 'x', '2x'];
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class BetsBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "1x",
+                  list2[index],
                   style: AppTextStyles.cn12_400.copyWith(color: AppTheme.grey),
                 ),
                 Text(list[index].toString(), style: AppTextStyles.cn12_700),

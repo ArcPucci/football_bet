@@ -23,6 +23,7 @@ class CustomTextField2 extends StatelessWidget {
         minLines: 3,
         maxLines: null,
         style: AppTextStyles.cn10_700,
+        textInputAction: TextInputAction.done,
         decoration: InputDecoration.collapsed(
           hintText: hintText,
           hintStyle: AppTextStyles.cn10_700.copyWith(

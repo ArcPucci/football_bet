@@ -43,8 +43,8 @@ class EventsService {
   Future<List<Event>> getInactiveEventsBySportType(int sportType) async {
     final map = await _database.query(
       eventsTable,
-      where: 'sport_type = ? AND win = ? OR win = ? OR win = ?',
-      whereArgs: [sportType, 0, 1, 2],
+      where: 'sport_type = ? AND win != ?',
+      whereArgs: [sportType, -1],
     );
 
     if (map.isEmpty) return [];
@@ -55,8 +55,8 @@ class EventsService {
   Future<List<Event>> getInactiveEvents() async {
     final map = await _database.query(
       eventsTable,
-      where: 'win = ? OR win = ? OR win = ?',
-      whereArgs: [0, 1, 2],
+      where: 'win != ?',
+      whereArgs: [-1],
     );
 
     if (map.isEmpty) return [];

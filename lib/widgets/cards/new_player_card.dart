@@ -13,12 +13,14 @@ class NewPlayerCard extends StatelessWidget {
     this.controller,
     this.onAddPhoto,
     this.onRemove,
+    this.maxLength,
   });
 
   final File? photo;
   final TextEditingController? controller;
   final VoidCallback? onAddPhoto;
   final VoidCallback? onRemove;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,9 @@ class NewPlayerCard extends StatelessWidget {
             child: TextField(
               controller: controller,
               style: AppTextStyles.cns12,
-              inputFormatters: [LengthLimitingTextInputFormatter(16)],
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(maxLength ?? 16),
+              ],
               decoration: InputDecoration.collapsed(
                 hintText: 'Player name',
                 hintStyle: AppTextStyles.cns12.copyWith(

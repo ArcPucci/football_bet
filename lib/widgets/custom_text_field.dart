@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/utils.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, required this.title, this.controller});
+  const CustomTextField({
+    super.key,
+    required this.title,
+    this.controller,
+    this.maxLength,
+  });
 
   final String title;
   final TextEditingController? controller;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +43,7 @@ class CustomTextField extends StatelessWidget {
             child: TextField(
               controller: controller,
               style: AppTextStyles.cn14_400,
+              inputFormatters: [LengthLimitingTextInputFormatter(maxLength)],
               decoration: InputDecoration.collapsed(
                 hintText: 'Tape here',
                 hintStyle: AppTextStyles.cn14_400.copyWith(

@@ -142,6 +142,8 @@ class EventsProvider extends ChangeNotifier {
     _eventModel!.secondTeamScore = score2;
     _profileProvider.addBet(_eventModel!.sportType);
 
+    if (_eventModel!.ownerBet == result) _profileProvider.addWin();
+
     await updateEvent();
     _leaderboardProvider.selectEvent(_eventModel!);
 

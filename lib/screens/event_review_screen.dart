@@ -89,6 +89,8 @@ class EventReviewScreen extends StatelessWidget {
                                       eventId: value.event.id,
                                       name: '${value2.name} ${value2.surname}',
                                       photo: value2.profilePhoto ?? '',
+                                      firstParticipantWins:
+                                          value.event.ownerBet,
                                     ),
                                     result: result,
                                   );

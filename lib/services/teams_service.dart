@@ -31,6 +31,8 @@ class TeamsService {
       map['logo'] = copiedPath;
     }
 
+    print(map['logo']);
+
     map['id'] = null;
     await _database.insert(teamsTable, map);
   }

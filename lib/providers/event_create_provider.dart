@@ -93,7 +93,18 @@ class EventCreateProvider extends ChangeNotifier {
 
   List<TeamModel> get teams => _teams;
 
-  void init() {}
+  bool get canStart =>
+      _days + _hours + _minutes != 0 &&
+      firstModel != null &&
+      secondModel != null &&
+      _winController.text.isNotEmpty &&
+      _drawController.text.isNotEmpty &&
+      _loseController.text.isNotEmpty &&
+      _descriptionController.text.isNotEmpty;
+
+  void init() {
+    _teamsProvider.reset();
+  }
 
   void addPlayer() {
     _playerModels.add(PlayerModel(controller: TextEditingController()));
@@ -120,14 +131,7 @@ class EventCreateProvider extends ChangeNotifier {
   }
 
   void createEvent() async {
-    if (firstModel == null || secondModel == null) return;
-    if (_winController.text.isEmpty ||
-        _drawController.text.isEmpty ||
-        _loseController.text.isEmpty ||
-        _descriptionController.text.isEmpty) {
-      return;
-    }
-    if (_days + _hours + _minutes == 0) return;
+    if(!canStart) return;
 
     final event = Event(
       id: 0,
@@ -149,7 +153,6 @@ class EventCreateProvider extends ChangeNotifier {
     if (_profileProvider.notification) {
       _notificationProvider.createNotification(event);
     }
-    _profileProvider.addBet(event.sportType);
   }
 
   void selectTeam(bool firstTeamSelected) {

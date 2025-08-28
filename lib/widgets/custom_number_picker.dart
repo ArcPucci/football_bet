@@ -30,7 +30,6 @@ class _NumberPickerState extends State<NumberPicker> {
     super.initState();
     _selected = widget.initialValue;
     _controller = FixedExtentScrollController(initialItem: _selected + 1);
-    // +1, потому что index 0 = "-"
   }
 
   @override
@@ -59,7 +58,6 @@ class _NumberPickerState extends State<NumberPicker> {
               : const NeverScrollableScrollPhysics(),
           onSelectedItemChanged: (index) {
             if (index == 0) {
-              // перескакиваем сразу на 0
               _controller.animateToItem(
                 1,
                 duration: const Duration(milliseconds: 200),
@@ -67,12 +65,12 @@ class _NumberPickerState extends State<NumberPicker> {
               );
               return;
             }
-            final value = index - 1; // index 1 → value 0
+            final value = index - 1;
             widget.onChanged?.call(value);
             setState(() => _selected = value);
           },
             childDelegate: ListWheelChildBuilderDelegate(
-              childCount: 22, // "-" + 0..20
+              childCount: 202,
               builder: (context, index) {
                 final text = index == 0 ? '-' : "${index - 1}";
                 final value = index == 0 ? 0 : index - 1;
@@ -80,16 +78,19 @@ class _NumberPickerState extends State<NumberPicker> {
                 return RotatedBox(
                   quarterTurns: 1,
                   child: Center(
-                    child: Text(
-                      text,
-                      style: AppTextStyles.cns16.copyWith(
-                        color: index == 0
-                            ? Colors.white.withValues(alpha: 0.4)
-                            : widget.enabled
-                            ? value == _selected
-                            ? widget.primaryColor
-                            : Colors.white.withValues(alpha: 0.4)
-                            : Colors.white.withValues(alpha: 0.4),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        text,
+                        style: AppTextStyles.cns16.copyWith(
+                          color: index == 0
+                              ? Colors.white.withValues(alpha: 0.4)
+                              : widget.enabled
+                              ? value == _selected
+                              ? widget.primaryColor
+                              : Colors.white.withValues(alpha: 0.4)
+                              : Colors.white.withValues(alpha: 0.4),
+                        ),
                       ),
                     ),
                   ),

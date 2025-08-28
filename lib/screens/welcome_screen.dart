@@ -126,17 +126,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   void skip() {
-    if(_index == 2) {
-      Provider.of<ConfigPreferences>(context, listen: false).setFirstInit();
-      context.go('/');
-      return;
-    }
-
-    controller.animateToPage(
-      2,
-      duration: Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
+    Provider.of<ConfigPreferences>(context, listen: false).setFirstInit();
+    context.go('/');
+    return;
   }
 
   void next() {

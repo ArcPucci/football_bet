@@ -53,9 +53,13 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
           SizedBox(height: 30.h),
           AvatarCard(canEdit: true, profilePhoto: path, onTap: pickImage),
           SizedBox(height: 25.h),
-          CustomTextField(title: "Name", controller: controller),
+          CustomTextField(title: "Name", controller: controller, maxLength: 8),
           SizedBox(height: 25.h),
-          CustomTextField(title: "Surname", controller: controller2),
+          CustomTextField(
+            title: "Surname",
+            controller: controller2,
+            maxLength: 8,
+          ),
           Spacer(),
           CustomButton2(
             text: "Replace",

@@ -12,9 +12,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fullPath = GoRouter.of(
-      context,
-    ).routerDelegate.currentConfiguration.fullPath;
     return Consumer<ProfileProvider>(
       builder: (BuildContext context, value, Widget? child) {
         return Column(
@@ -45,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
               borderRadius: 34,
               color: AppTheme.black,
               textStyle: AppTextStyles.cn16_400,
-              onTap: () => context.go('$fullPath/edit'),
+              onTap: () => context.push('/profile/edit'),
             ),
             SizedBox(height: 30.h),
             Container(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_bet/models/models.dart';
@@ -23,14 +25,7 @@ class TeamScoreCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ClipOval(
-            child: Image.asset(
-              teamModel.logo,
-              width: 40.r,
-              height: 40.r,
-              fit: BoxFit.cover,
-            ),
-          ),
+          _buildLogo(teamModel),
           Text(teamModel.shortName, style: AppTextStyles.cns14),
           NumberPicker(
             initialValue: 3,
@@ -39,6 +34,26 @@ class TeamScoreCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildLogo(TeamModel team) {
+    if (team.customTeam) {
+      return ClipOval(
+        child: Image.file(
+          File(teamModel.logo),
+          width: 40.r,
+          height: 40.r,
+          fit: BoxFit.cover,
+        ),
+      );
+    }
+
+    return Image.asset(
+      teamModel.logo,
+      width: 40.r,
+      height: 40.r,
+      fit: BoxFit.cover,
     );
   }
 }
